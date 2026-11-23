@@ -4,6 +4,8 @@ import FutureLink from "./FutureLink.astro";
 import Icon from "./Icon.astro";
 import { parts, stockColumns, pricesDate, phones, viber, futureNote } from "../data/client";
 
+const rawBase: string = import.meta.env.BASE_URL;
+const base = rawBase.endsWith("/") ? rawBase : rawBase + "/";
 const price = (n: number): string => n.toLocaleString("uk-UA");
 ---
 <Section id="stock" class="block stock" labelledby="stock-title" rec="R-104,G-R004">
@@ -24,8 +26,8 @@ const price = (n: number): string => n.toLocaleString("uk-UA");
         <li>
           <article class="part" id={`part-${p.id}`} aria-labelledby={`part-${p.id}-name`} data-search-name={`${p.name} ${p.partNo}`} data-search-type="Позиція" data-search-keys={`${p.partNo} ${p.code} ${p.fit} ${p.keywords}`}>
             <picture class="part__photo">
-              <source srcset={`/img/part-${p.id}.avif`} type="image/avif" />
-              <img src={`/img/part-${p.id}.webp`} width="96" height="96" loading="lazy" decoding="async" alt={`${p.name}, ${p.partNo}`} />
+              <source srcset={`${base}img/part-${p.id}.avif`} type="image/avif" />
+              <img src={`${base}img/part-${p.id}.webp`} width="96" height="96" loading="lazy" decoding="async" alt={`${p.name}, ${p.partNo}`} />
             </picture>
             <div class="part__info">
               <h3 class="part__name" id={`part-${p.id}-name`}>{p.name}</h3>

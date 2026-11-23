@@ -2,6 +2,8 @@
 import FutureLink from "./FutureLink.astro";
 import Icon from "./Icon.astro";
 import { phones, viber, futureNote } from "../data/client";
+const rawBase: string = import.meta.env.BASE_URL;
+const base = rawBase.endsWith("/") ? rawBase : rawBase + "/";
 
 const anchors = [
   { href: "#models", label: "Моделі" },
@@ -15,7 +17,7 @@ const anchors = [
 <header class="site-header">
   <div class="container site-header__bar">
     <a class="site-header__logo" href="#top">
-      <img src="/img/logo-911auto.webp" width="124" height="45" alt="911auto, оригінальні запчастини Mitsubishi, Nissan, Subaru" />
+      <img src={`${base}img/logo-911auto.webp`} width="124" height="45" alt="911auto, оригінальні запчастини Mitsubishi, Nissan, Subaru" />
     </a>
 
     <nav class="site-nav" aria-label="Розділи сторінки">
