@@ -1,0 +1,31 @@
+---
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import { payments, futureNote } from "../data/client";
+---
+<Section id="delivery" class="block delivery" labelledby="delivery-title" rec="G-R004">
+  <div class="container delivery__grid">
+    <div class="delivery__time">
+      <h2 id="delivery-title" class="block__title">Доставка та оплата</h2>
+      <p class="delivery__num" aria-hidden="true">14:00</p>
+      <p class="delivery__rule">Оплатіть до 14:00, і відправимо Новою поштою в день замовлення. Доставка по всій Україні.</p>
+    </div>
+    <div class="delivery__facts">
+      <div class="fact">
+        <h3 class="fact__title">Відправка після оплати</h3>
+        <p>Вантаж страхуємо на повну вартість.</p>
+      </div>
+      <div class="fact">
+        <h3 class="fact__title">Самовивіз</h3>
+        <p>З магазинів у Києві (Софіївська Борщагівка) та Дніпрі, Пн–Пт 09:00–18:00.</p>
+      </div>
+      <div class="fact">
+        <h3 class="fact__title">Способи оплати</h3>
+        <ul class="fact__list">
+          {payments.map((p) => <li>{p}</li>)}
+        </ul>
+      </div>
+      <FutureLink note={futureNote} class="future-link--start delivery__more">Доставка та оплата: усі умови</FutureLink>
+    </div>
+  </div>
+</Section>

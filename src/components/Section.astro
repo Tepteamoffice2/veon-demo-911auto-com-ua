@@ -1,0 +1,9 @@
+---
+// Section shell: id from the veon-concept `sections` list, optional data-rec link to recommendations.
+// `recTodo` marks a block that implements a concept recommendation until R-ids are assigned (data-rec-todo).
+interface Props { id: string; rec?: string; recTodo?: string; class?: string; label?: string; labelledby?: string; }
+const { id, rec, recTodo, class: cls, label, labelledby } = Astro.props;
+---
+<section id={id} data-rec={rec} data-rec-todo={recTodo} class={cls} aria-label={label} aria-labelledby={labelledby}>
+  <slot />
+</section>

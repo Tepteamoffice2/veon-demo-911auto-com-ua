@@ -1,0 +1,67 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Models from "../components/Models.astro";
+import Stock from "../components/Stock.astro";
+import Catalog from "../components/Catalog.astro";
+import Order from "../components/Order.astro";
+import Wholesale from "../components/Wholesale.astro";
+import Delivery from "../components/Delivery.astro";
+import About from "../components/About.astro";
+import Contacts from "../components/Contacts.astro";
+import Footer from "../components/Footer.astro";
+import ActionBar from "../components/ActionBar.astro";
+import { warehouses, email, legalName } from "../data/client";
+import "../styles/site.css";
+import "../styles/sections.css";
+
+const h1 = "Оригінальні запчастини Mitsubishi в наявності — склади в Києві та Дніпрі";
+const title = "Оригінальні запчастини Mitsubishi в наявності — Київ, Дніпро, доставка по Україні | 911auto";
+const description = "Оригінальні запчастини Mitsubishi, Nissan, Subaru та інших японських марок. Наявність по складах у Києві та Дніпрі, відправка Новою поштою в день замовлення при оплаті до 14:00. Опт для СТО та автомагазинів.";
+
+// Structured data: two stores and the website (no SearchAction: the full catalogue search is not built yet).
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "WebSite", name: "911auto", inLanguage: "uk" },
+    ...warehouses.map((w) => ({
+      "@type": "AutoPartsStore",
+      name: `911auto, ${w.city}`,
+      legalName,
+      email,
+      telephone: w.phone.tel,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: w.street,
+        addressLocality: w.id === "kyiv" ? "Софіївська Борщагівка" : "Дніпро",
+        ...(w.id === "kyiv" ? { addressRegion: "Київська область" } : {}),
+        addressCountry: "UA",
+      },
+      openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "18:00" }],
+    })),
+  ],
+};
+---
+<Base lang="uk" title={title} description={description}>
+  <Fragment slot="head">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="preload" href="/fonts/FixelDisplay-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="uk_UA" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+  <Header slot="header" />
+  <Hero h1={h1} />
+  <Models />
+  <Stock />
+  <Catalog />
+  <Order />
+  <Wholesale />
+  <Delivery />
+  <About />
+  <Contacts />
+  <Footer slot="footer" />
+  <ActionBar slot="footer" />
+  <script src="../scripts/home.ts"></script>
+</Base>

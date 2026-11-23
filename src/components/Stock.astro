@@ -1,0 +1,61 @@
+---
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import { parts, stockColumns, pricesDate, phones, viber, futureNote } from "../data/client";
+
+const price = (n: number): string => n.toLocaleString("uk-UA");
+---
+<Section id="stock" class="block stock" labelledby="stock-title" rec="R-104,G-R004">
+  <div class="container">
+    <div class="stock__top">
+      <div class="block__head stock__head">
+        <h2 id="stock-title" class="block__title">Наявність по складах</h2>
+        <p class="block__lead">У кожному рядку видно артикул і де деталь зараз: Київ, Дніпро чи вже в дорозі.</p>
+      </div>
+      <dl class="stock-legend" aria-label="Позначки наявності">
+        <div class="stock-legend__item"><dt><span class="mark mark--yes"><Icon name="check" size={18} /></span></dt><dd>є на складі</dd></div>
+        <div class="stock-legend__item"><dt><span class="mark mark--no"><Icon name="minus" size={18} /></span></dt><dd>немає</dd></div>
+      </dl>
+    </div>
+
+    <ul class="part-list">
+      {parts.map((p) => (
+        <li>
+          <article class="part" id={`part-${p.id}`} aria-labelledby={`part-${p.id}-name`} data-search-name={`${p.name} ${p.partNo}`} data-search-type="Позиція" data-search-keys={`${p.partNo} ${p.code} ${p.fit} ${p.keywords}`}>
+            <picture class="part__photo">
+              <source srcset={`/img/part-${p.id}.avif`} type="image/avif" />
+              <img src={`/img/part-${p.id}.webp`} width="96" height="96" loading="lazy" decoding="async" alt={`${p.name}, ${p.partNo}`} />
+            </picture>
+            <div class="part__info">
+              <h3 class="part__name" id={`part-${p.id}-name`}>{p.name}</h3>
+              <p class="part__fit">{p.fit}</p>
+              <p class="part__ids">
+                <span class="part__no num">{p.partNo}</span>
+                <span class="part__code">Код <span class="num">{p.code}</span></span>
+              </p>
+            </div>
+            <ul class="matrix" data-matrix aria-label={`Наявність ${p.partNo} по складах`}>
+              {stockColumns.map((col, i) => (
+                <li class:list={["matrix__cell", p.stock[i] ? "is-yes" : "is-no"]} style={`--i:${i}`}>
+                  <span class:list={["mark", p.stock[i] ? "mark--yes" : "mark--no"]}><Icon name={p.stock[i] ? "check" : "minus"} size={18} /></span>
+                  <span class="matrix__label">{col}</span>
+                  <span class="visually-hidden">{p.stock[i] ? ": є" : ": немає"}</span>
+                </li>
+              ))}
+            </ul>
+            <div class="part__buy">
+              <p class="part__price">{price(p.price)} ₴</p>
+              <FutureLink note={futureNote} class="future-link--btn future-link--end part__cart">Купити</FutureLink>
+            </div>
+          </article>
+        </li>
+      ))}
+    </ul>
+
+    <div class="stock__foot">
+      <p class="stock__note">Ціни та наявність за даними сайту на {pricesDate}.</p>
+      <p class="stock__order">Замовити зараз: <a class="text-link" href={`tel:${phones.kyiv.tel}`}>{phones.kyiv.display}</a> або <a class="text-link" href={viber.href}>Viber</a></p>
+    </div>
+  </div>
+</Section>

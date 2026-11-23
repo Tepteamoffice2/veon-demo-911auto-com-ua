@@ -1,0 +1,27 @@
+---
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import { categories, futureNote } from "../data/client";
+---
+<Section id="catalog" class="block catalog" labelledby="catalog-title">
+  <div class="container catalog__grid">
+    <div class="block__head catalog__head">
+      <h2 id="catalog-title" class="block__title">Каталог за вузлами</h2>
+      <p class="block__lead">Розділи за вузлами авто: від оливи й фільтрів до підвіски, гальм і трансмісії.</p>
+    </div>
+    <ul class="node-index" aria-label="Розділи каталогу">
+      {categories.map((c) => (
+        <li class="node-index__item" data-search-name={c.name} data-search-type="Розділ каталогу" data-search-href="#catalog" data-search-keys={c.detail ?? ""}>
+          <FutureLink note={futureNote} class="index-row node-row future-link--start">
+            <span class="node-row__text">
+              <span class="node-row__name">{c.name}</span>
+              {c.detail && <span class="node-row__detail">{c.detail}</span>}
+            </span>
+            <Icon name="arrow" size={20} class="node-row__icon" />
+          </FutureLink>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Section>

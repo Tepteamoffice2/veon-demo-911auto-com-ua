@@ -1,0 +1,69 @@
+/* Hallmark · shape: counter-index (search counter → model index → stock rows → node index → routes → terms → contacts) · genre: modern-minimal · theme: custom · job: buy · idea: "Прилавок, а не вітрина: деталь → наявність по складах → коли буде у вас" · vibe: "складський, точний, швидкий, оригінальний"
+ * paper: #EDEEEA · accent: #B81D35 · display: Fixel Display · body: Fixel Text · hero: поле підбору на всю ширину + годинник відправки до 14:00 + червона смуга-квитанція з двома складами · nav: sticky white bar with anchors, phone, burger below 1200 · footer: ink block, two warehouses in columns, phones, legal name · imagery: client photos (four real parts, white square) · surface: absolute #FFFFFF (concept palette) · signature: годинник відправки до 14:00 і матриця наявності по складах
+ * axes: cold-concrete/grotesk/brand-red · posture: committed · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V3 · weakest: V (visual), only four small client photos are available; answered with type-led composition (big model index, 14:00 numerals, route bars) instead of filler imagery */
+/* Hallmark · waive 7b · --color-surface and --color-accent-ink are #FFFFFF · concept.md §5 «Палітра» fixes Surface #FFFFFF: white field, part photos shot on white, white on red 6.4:1 */
+/* Hallmark · waive 39b · search field and its button 64 px, large buttons 56 px · concept.md §5 «Перший екран» and «Кнопки» fix 64 px for the counter field and 48/56 px buttons: the search counter is the hero object */
+/* Hallmark · waive 23 · brand red covers ~15 % of the 1280x800 fold (receipt strip + «Знайти») · concept.md §5 «Перший екран»: the red receipt strip with 14:00 and both warehouses is the hero signature; posture committed */
+/* Hallmark · dismissed 59 · 10 = nine content sections fixed by concept.md veon-concept `sections` + footer; each carries a distinct fact of client.json, merging would hide опт or склади */
+/* Hallmark · dismissed 28a · LCP is the H1 text at every width (hero holds no image); the first part photo sits below the fold after #models, lazy is correct */
+/* Client design tokens from design/concept.md (veon-concept). Breakpoints (media queries cannot read custom properties): 48em = 768, 64em = 1024, 75em = 1200. */
+:root {
+  /* colour roles (concept §5 «Палітра») */
+  --color-bg: #EDEEEA;          /* ground: cold warehouse concrete */
+  --color-text: #15171C;        /* ink: text and dark blocks */
+  --color-surface: #FFFFFF;     /* cards, field */
+  --color-accent: #B81D35;      /* brand red: action and signal only */
+  --color-accent-hover: #9C172C;
+  --color-muted: #585D64;       /* secondary text on light */
+  --color-muted-on-ink: #A3A8AE;/* secondary text on ink (derived, see decisions.md) */
+  --color-stock: #1D7A45;       /* «є в наявності» */
+  --color-line: #C3C6C9;        /* decorative rules only */
+  --color-accent-ink: #FFFFFF;   /* text on brand red */
+
+  /* type */
+  --font-display: "Fixel Display", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Fixel Text", "Segoe UI", system-ui, sans-serif;
+  --text-1: 0.875rem;   /* 14 */
+  --text-2: 1rem;       /* 16 */
+  --text-3: 1.125rem;   /* 18 */
+  --text-4: 1.5rem;     /* 24 */
+  --text-5: clamp(1.5rem, 1.1rem + 1.6vw, 2rem);     /* 24 → 32 */
+  --text-6: clamp(2rem, 1.3rem + 2.8vw, 3rem);       /* 32 → 48 */
+  --text-7: clamp(2rem, 1.2rem + 3vw, 4.25rem); /* 32 → 68, H1 */
+  --text-num: clamp(4rem, 2rem + 8vw, 9rem);         /* signature numerals: 14:00 */
+  --lh-tight: 1.1;
+  --lh-text: 1.5;
+
+  /* space (8-step) */
+  --s-1: 0.5rem;  /* 8 */
+  --s-2: 1rem;    /* 16 */
+  --s-3: 1.5rem;  /* 24 */
+  --s-4: 2rem;    /* 32 */
+  --s-5: 3rem;    /* 48 */
+  --s-6: 4.5rem;  /* 72 */
+  --s-7: 7.5rem;  /* 120 */
+  --section-gap: clamp(4.5rem, 2.5rem + 6vw, 7.5rem);
+
+  /* shape */
+  --radius: 4px;
+  --border: 1.5px;
+  --header-h: 72px;
+  --tap: 48px;
+
+  /* motion */
+  --ease-out: cubic-bezier(.2, .7, .2, 1);
+  --dur: 250ms;
+  --dur-fast: 200ms;
+
+  /* layout */
+  --space: clamp(1.25rem, 0.4rem + 2.6vw, 2.5rem); /* page padding 20 → 40 */
+  --container: 1320px;
+  --gutter: 1.5rem;
+  --measure: 68ch;
+}
+
+@font-face { font-family: "Fixel Display"; src: url("/fonts/FixelDisplay-SemiBold.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Fixel Display"; src: url("/fonts/FixelDisplay-Bold.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Fixel Text"; src: url("/fonts/FixelText-Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Fixel Text"; src: url("/fonts/FixelText-SemiBold.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }

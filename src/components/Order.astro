@@ -1,0 +1,34 @@
+---
+import Section from "./Section.astro";
+import Icon from "./Icon.astro";
+import { routes, phones, viber } from "../data/client";
+
+const longest = Math.max(...routes.map((r) => r.maxDays));
+---
+<Section id="order" class="block block--ink on-ink order" labelledby="order-title" rec="G-R004">
+  <div class="container order__grid">
+    <div class="block__head order__head">
+      <h2 id="order-title" class="block__title">Під замовлення: прямі поставки</h2>
+      <p class="block__lead">Немає на складі? Привеземо напряму, і ви одразу знаєте строк.</p>
+      <div class="order__actions">
+        <a class="btn btn--secondary" href={viber.href}><Icon name="viber" size={20} />Запитати у Viber</a>
+        <a class="text-link order__phone" href={`tel:${phones.kyiv.tel}`}>{phones.kyiv.display}</a>
+      </div>
+    </div>
+
+    <table class="routes">
+      <caption class="visually-hidden">Строки прямих поставок за країнами</caption>
+      <tbody>
+        {routes.map((r) => (
+          <tr class="route" data-search-name={`Під замовлення: ${r.country}`} data-search-type={r.term} data-search-href="#order" data-search-keys="під замовлення поставка">
+            <th scope="row" class="route__country">{r.country}</th>
+            <td class="route__term">
+              <span class="route__days">{r.term}</span>
+              <span class="route__bar" aria-hidden="true" style={`--share:${(r.maxDays / longest).toFixed(3)}`}></span>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</Section>

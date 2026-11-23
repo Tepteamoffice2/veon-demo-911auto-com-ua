@@ -1,0 +1,62 @@
+---
+import Section from "./Section.astro";
+import Icon from "./Icon.astro";
+import { quickModels, warehouses, phones, viber } from "../data/client";
+
+interface Props { h1: string; }
+const { h1 } = Astro.props;
+const hints = ["Артикул, наприклад MD050135", "Назва, наприклад свічка запалювання", "Модель, наприклад Outlander XL"];
+---
+<Section id="hero" class="hero" labelledby="hero-title" rec="R-101,R-102,G-R003,S-R104">
+  <div class="container hero__grid">
+    <div class="hero__head">
+      <h1 id="hero-title" class="hero__title">{h1}</h1>
+      <p class="hero__lead">Назвіть деталь, і ми одразу покажемо, на якому складі вона є та коли буде у вас.</p>
+    </div>
+
+
+    <form class="part-search" role="search" action="#stock" data-search-form>
+      <label class="part-search__label" for="part-search">Артикул, номер деталі або назва</label>
+      <div class="part-search__row">
+        <div class="part-search__field">
+          <input id="part-search" name="q" type="search" placeholder=" " class="part-search__input" autocomplete="off" spellcheck="false" enterkeyhint="search" aria-describedby="part-search-hint" aria-controls="search-results" />
+          <span class="part-search__hints" aria-hidden="true" data-search-hints>
+            {hints.map((h, i) => <span class:list={["part-search__hint", { "is-active": i === 0 }]}>{h}</span>)}
+          </span>
+        </div>
+        <button class="btn btn--primary part-search__submit" type="submit">
+          <Icon name="search" size={20} />
+          Знайти
+        </button>
+      </div>
+      <p id="part-search-hint" class="visually-hidden">Пошук по моделях, розділах каталогу та позиціях на цій сторінці.</p>
+      <div id="search-results" class="search-results" aria-live="polite" data-search-results hidden></div>
+      <div id="search-empty" hidden>
+        <p>Запитайте менеджера: <a class="text-link num" href={`tel:${phones.kyiv.tel}`}>{phones.kyiv.display}</a> або <a class="text-link" href={viber.href}>Viber</a>.</p>
+      </div>
+    </form>
+
+    <div class="quick-models">
+      <p class="quick-models__label" id="quick-models-label">Швидкий вибір моделі Mitsubishi</p>
+      <ul class="quick-models__list" aria-labelledby="quick-models-label">
+        {quickModels.map((m) => <li><a class="chip" href="#models" data-quick-model={m}>{m}</a></li>)}
+        <li><a class="chip chip--all" href="#models">Усі моделі</a></li>
+      </ul>
+    </div>
+
+    <figure class="ship-clock" data-ship-clock>
+      <figcaption class="ship-clock__caption">Відправка Новою поштою</figcaption>
+      <p class="ship-clock__time"><span class="visually-hidden">до </span>14:00</p>
+      <p class="ship-clock__status" data-ship-status>Оплатіть до 14:00 у робочий день, і відправимо того ж дня.</p>
+    </figure>
+  </div>
+
+  <div class="receipt">
+    <ul class="container receipt__list" aria-label="Відправка і самовивіз">
+      <li class="receipt__item receipt__item--ship"><strong>Оплата до 14:00</strong><span>відправка в день замовлення</span></li>
+      {warehouses.map((w) => (
+        <li class="receipt__item"><strong>{w.city}, {w.id === "kyiv" ? "Софіївська Борщагівка" : w.street}</strong><span>самовивіз, {w.hours}</span></li>
+      ))}
+    </ul>
+  </div>
+</Section>

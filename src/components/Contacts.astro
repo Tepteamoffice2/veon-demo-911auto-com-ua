@@ -1,0 +1,42 @@
+---
+import Section from "./Section.astro";
+import Icon from "./Icon.astro";
+import { warehouses, phones, email, viber } from "../data/client";
+---
+<Section id="contacts" class="block contacts" labelledby="contacts-title">
+  <div class="container">
+    <div class="block__head">
+      <h2 id="contacts-title" class="block__title">Два склади</h2>
+      <p class="block__lead">Самовивіз у робочі дні, з понеділка по пʼятницю, 09:00–18:00.</p>
+    </div>
+    <div class="depots">
+      {warehouses.map((w) => (
+        <article class="depot" aria-labelledby={`depot-${w.id}`}>
+          <h3 class="depot__city" id={`depot-${w.id}`}>{w.city}</h3>
+          <address class="depot__address">
+            {w.region && <span>{w.region},</span>}
+            <span>{w.street}</span>
+          </address>
+          <p class="depot__hours">{w.hours}</p>
+          <a class="depot__phone" href={`tel:${w.phone.tel}`}><Icon name="phone" size={22} />{w.phone.display}</a>
+        </article>
+      ))}
+    </div>
+    <div class="support">
+      <div class="support__group">
+        <h3 class="support__title">Підтримка</h3>
+        <ul class="support__list">
+          {phones.support.map((p) => <li><a class="text-link" href={`tel:${p.tel}`}>{p.display}</a></li>)}
+        </ul>
+      </div>
+      <div class="support__group">
+        <h3 class="support__title">Пошта</h3>
+        <a class="text-link" href={`mailto:${email}`}>{email}</a>
+      </div>
+      <div class="support__group">
+        <h3 class="support__title">Viber</h3>
+        <a class="btn btn--secondary" href={viber.href}><Icon name="viber" size={20} />{viber.display}</a>
+      </div>
+    </div>
+  </div>
+</Section>

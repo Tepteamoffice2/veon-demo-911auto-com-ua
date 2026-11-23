@@ -1,0 +1,74 @@
+---
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import { phones, viber, futureNote } from "../data/client";
+
+const anchors = [
+  { href: "#models", label: "Моделі" },
+  { href: "#stock", label: "Наявність" },
+  { href: "#catalog", label: "Каталог" },
+  { href: "#wholesale", label: "Опт" },
+  { href: "#delivery", label: "Доставка" },
+  { href: "#contacts", label: "Контакти" },
+];
+---
+<header class="site-header">
+  <div class="container site-header__bar">
+    <a class="site-header__logo" href="#top">
+      <img src="/img/logo-911auto.webp" width="124" height="45" alt="911auto, оригінальні запчастини Mitsubishi, Nissan, Subaru" />
+    </a>
+
+    <nav class="site-nav" aria-label="Розділи сторінки">
+      <ul class="site-nav__list">
+        {anchors.map((a) => <li><a class="site-nav__link" href={a.href}>{a.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="site-header__tools">
+      <a class="site-header__phone" href={`tel:${phones.kyiv.tel}`}>
+        <Icon name="phone" size={20} />
+        <span>{phones.kyiv.display}</span>
+      </a>
+      <FutureLink note={futureNote} class="site-header__future">Кошик</FutureLink>
+      <FutureLink note={futureNote} class="site-header__future">Вхід</FutureLink>
+      <span class="lang">
+        <span class="lang__current" aria-current="true">UA</span>
+        <FutureLink note={futureNote} class="lang__alt">RU</FutureLink>
+      </span>
+
+      <a class="icon-btn site-header__search" href="#part-search" data-focus-search>
+        <Icon name="search" />
+        <span class="visually-hidden">Пошук деталі</span>
+      </a>
+      <a class="icon-btn site-header__call" href={`tel:${phones.kyiv.tel}`}>
+        <Icon name="phone" />
+        <span class="visually-hidden">Подзвонити в Київ</span>
+      </a>
+
+      <details class="menu" data-menu>
+        <summary class="icon-btn menu__toggle">
+          <Icon name="menu" class="menu__open-icon" />
+          <Icon name="close" class="menu__close-icon" />
+          <span class="visually-hidden">Меню</span>
+        </summary>
+        <div class="menu__panel">
+          <nav aria-label="Меню">
+            <ul class="menu__list">
+              {anchors.map((a) => <li><a class="menu__link" href={a.href}>{a.label}</a></li>)}
+            </ul>
+          </nav>
+          <div class="menu__contacts">
+            <a class="menu__phone" href={`tel:${phones.kyiv.tel}`}><span class="menu__phone-label">Київ</span>{phones.kyiv.display}</a>
+            <a class="menu__phone" href={`tel:${phones.dnipro.tel}`}><span class="menu__phone-label">Дніпро</span>{phones.dnipro.display}</a>
+            <a class="btn btn--secondary menu__viber" href={viber.href}><Icon name="viber" size={20} />Написати у Viber</a>
+          </div>
+          <div class="menu__future">
+            <FutureLink note={futureNote}>Кошик</FutureLink>
+            <FutureLink note={futureNote}>Вхід</FutureLink>
+            <FutureLink note={futureNote}>RU</FutureLink>
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>

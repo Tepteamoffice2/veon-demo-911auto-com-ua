@@ -1,0 +1,34 @@
+---
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import { phones, viber, futureNote } from "../data/client";
+
+const terms: { title: string; text?: string }[] = [
+  { title: "Індивідуальні умови", text: "Для автомагазинів і автосервісів." },
+  { title: "Персональний менеджер" },
+  { title: "Відправка напряму вашому клієнту" },
+  { title: "Оптові ціни після входу", text: "Видно на сайті після реєстрації та входу." },
+];
+---
+<Section id="wholesale" class="block wholesale" labelledby="wholesale-title" rec="R-103,G-R004">
+  <div class="container wholesale__grid">
+    <div class="wholesale__intro">
+      <h2 id="wholesale-title" class="block__title">Для СТО та автомагазинів</h2>
+      <p class="block__lead">Опт — основний напрям 911auto. Для реєстрації потрібна копія свідоцтва з відповідним видом діяльності.</p>
+      <div class="wholesale__actions">
+        <a class="btn btn--primary btn--lg" href={`tel:${phones.kyiv.tel}`}><Icon name="phone" size={20} />Подзвонити менеджеру</a>
+        <a class="btn btn--secondary btn--lg" href={viber.href}><Icon name="viber" size={20} />Написати у Viber</a>
+      </div>
+      <FutureLink note={futureNote} class="future-link--start wholesale__more">Оптовим покупцям: умови та реєстрація</FutureLink>
+    </div>
+    <ol class="terms">
+      {terms.map((t) => (
+        <li class="terms__item">
+          <h3 class="terms__title">{t.title}</h3>
+          {t.text && <p class="terms__text">{t.text}</p>}
+        </li>
+      ))}
+    </ol>
+  </div>
+</Section>

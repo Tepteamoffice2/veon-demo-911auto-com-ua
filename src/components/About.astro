@@ -1,0 +1,28 @@
+---
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import { futureNote } from "../data/client";
+
+// Company statements from its «Про нас» page (C-005), shown as the company's own words.
+const claims = [
+  "Все, що ви бачите на сайті, — є в наявності.",
+  "Ліцензійні запчастини тестуємо на власних авто.",
+  "Без накопичувальних знижок: одразу найкращі ціни.",
+  "Аргументований торг вітається.",
+];
+---
+<Section id="about" class="block about" labelledby="about-title">
+  <div class="container about__grid">
+    <div class="about__head">
+      <h2 id="about-title" class="block__title">Чому оригінал</h2>
+      <p class="about__text">911auto постачає оригінальні запчастини Mitsubishi для Lancer, Outlander, Pajero, ASX, L200 та інших моделей, а також запчастини Nissan, Subaru, Toyota, Honda і Mazda. Власний офіс і склад, магазини в Києві та Дніпрі, відправка по всій Україні та опт для СТО й автомагазинів.</p>
+      <FutureLink note={futureNote} class="future-link--start about__more">Про нас</FutureLink>
+    </div>
+    <figure class="claims">
+      <ul class="claims__list">
+        {claims.map((c) => <li class="claims__item"><blockquote class="claims__quote"><p>{c}</p></blockquote></li>)}
+      </ul>
+      <figcaption class="claims__source">Зі сторінки «Про нас» 911auto</figcaption>
+    </figure>
+  </div>
+</Section>

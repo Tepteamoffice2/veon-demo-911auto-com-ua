@@ -1,0 +1,36 @@
+---
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import { mitsubishiModels, otherBrands, onOrderBrands, futureNote } from "../data/client";
+---
+<Section id="models" class="block models" labelledby="models-title" rec="R-102,G-R004">
+  <div class="container models__grid">
+    <div class="block__head models__head">
+      <h2 id="models-title" class="block__title">Ваша модель</h2>
+      <p class="block__lead">Не знаєте артикул? Почніть з моделі: оригінальні запчастини Mitsubishi в наявності для цих авто.</p>
+    </div>
+
+    <ul class="model-index" aria-label="Моделі Mitsubishi">
+      {mitsubishiModels.map((m) => (
+        <li class="model-index__item" data-search-name={`Mitsubishi ${m}`} data-search-type="Модель" data-search-href="#models" data-search-keys={m}>
+          <FutureLink note={futureNote} class="index-row future-link--start">{m}</FutureLink>
+        </li>
+      ))}
+    </ul>
+
+    <div class="models__brands">
+      <p class="models__brands-line">
+        <span class="models__brands-label">Також у наявності</span>
+        <span class="models__brands-names">
+          {otherBrands.map((b) => <span data-search-name={b} data-search-type="Марка" data-search-href="#models" data-search-keys={b}>{b}</span>)}
+        </span>
+      </p>
+      <p class="models__brands-line">
+        <span class="models__brands-label">Під замовлення</span>
+        <span class="models__brands-names">
+          {onOrderBrands.map((b) => <span data-search-name={b} data-search-type="Марка під замовлення" data-search-href="#order" data-search-keys={b}>{b}</span>)}
+        </span>
+      </p>
+    </div>
+  </div>
+</Section>

@@ -1,0 +1,10 @@
+---
+// Mobile-only sticky bar (≤ 768 px): appears after the hero is scrolled past (home.ts). Without scripts it stays visible.
+import Icon from "./Icon.astro";
+import { phones, viber } from "../data/client";
+---
+<nav class="action-bar" aria-label="Швидкі дії" data-action-bar>
+  <a class="action-bar__item" href="#part-search" data-focus-search><Icon name="search" size={22} /><span>Знайти деталь</span></a>
+  <a class="action-bar__item" href={`tel:${phones.kyiv.tel}`}><Icon name="phone" size={22} /><span>Подзвонити</span></a>
+  <a class="action-bar__item" href={viber.href}><Icon name="viber" size={22} /><span>Viber</span></a>
+</nav>
